@@ -4,16 +4,16 @@ describe("Favourite Movies", () => {
   let myMovies
   beforeEach(() => {
     myMovies = [{
-      title: "Ice Age",
+      title: "Ice Age 2",
       rate: null
     }]
   })
-  test("can add a movie", () => {
+  test.skip("can add a movie", () => {
     movies.add(myMovies, 'Avatar')
     expect(myMovies).toMatchSnapshot()
   })
 
-  test("rate a movie", () => {
+  test.only("rate a movie", () => {
     movies.rate(myMovies[0], 5)
     expect(myMovies).toMatchSnapshot()
   })

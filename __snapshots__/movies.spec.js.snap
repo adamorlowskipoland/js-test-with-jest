@@ -17,7 +17,7 @@ exports[`Favourite Movies rate a movie 1`] = `
 Array [
   Object {
     "rate": 5,
-    "title": "Ice Age",
+    "title": "Ice Age 2",
   },
 ]
 `;
