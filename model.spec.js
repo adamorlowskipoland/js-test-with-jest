@@ -49,3 +49,16 @@ describe("all", () => {
     expect(model.$collection[0].name).toBe("Batman");
   })
 });
+
+describe("find", () => {
+  test("returns null if nothing matches", () => {
+    const model = new Model();
+    expect(model.find("Batman")).toEqual(null);
+  });
+
+  test("return a matching entry", () => {
+    const heroes = [{name: "Batman"}, {name: "Black Panther"}];
+    const model = new Model(heroes);
+    expect(model.find("Batman")).toEqual(heroes[0]);
+  });
+});
