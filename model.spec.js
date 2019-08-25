@@ -75,3 +75,28 @@ describe("find", () => {
     expect(model.find(1)).toEqual(heroes[0]);
   });
 });
+
+describe("update", () => {
+  const heroesAndVillains = [{id: 1, name: "Batman"}];
+  let model;
+  beforeEach(() => {
+    model = new Model(JSON.parse(JSON.stringify(heroesAndVillains)));
+  });
+
+  test("an entry by id", () => {
+    model.update(1, {name: "Joker"});
+    expect(model.find(1).name).toBe("Joker");
+  });
+
+  test("extend an entry by id", () => {
+    model.update(1, {cape: true});
+    expect(model.find(1)).toEqual(expect.objectContaining({
+      name: "Batman",
+      cape: true,
+    }));
+  });
+
+  test("returns false if no entry matches", () => {
+    expect(model.update(2, {})).toBe(false);
+  });
+});

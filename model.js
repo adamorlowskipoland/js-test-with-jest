@@ -27,6 +27,9 @@ export default class Model {
     return entry ? Object.assign({}, entry) : null;
   }
 
-  update() {
+  update(id, data) {
+    const entryIndex = this.$collection.findIndex(entry => entry.id === id);
+    if (entryIndex < 0) return false;
+    this.$collection.splice(entryIndex, 1, Object.assign(this.$collection[entryIndex], data));
   }
 }
