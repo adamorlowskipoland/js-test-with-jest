@@ -36,6 +36,10 @@ export default class Model {
     this.$collection.splice(entryIndex, 1, Object.assign(this.$collection[entryIndex], data));
   }
 
-  remove() {
+  remove(id) {
+    const entryIndex = this.$collection.findIndex(entry => entry[this.$options.primaryKey] === id);
+    if (entryIndex > -1) {
+      this.$collection.splice(entryIndex, 1);
+    }
   }
 }
