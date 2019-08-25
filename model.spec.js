@@ -21,6 +21,7 @@ test("model structure", () => {
     all: expect.any(Function),
     find: expect.any(Function),
     update: expect.any(Function),
+    remove: expect.any(Function),
   }))
 });
 
@@ -119,5 +120,15 @@ describe("update", () => {
 
   test("returns false if no entry matches", () => {
     expect(model.update(2, {})).toBe(false);
+  });
+});
+
+describe("remove", () => {
+  const heroes = [{id: 1, name: "Batman"}, {id: 2, name: "Black Panther"}];
+  test("will remove object with given primaryKey", () => {
+    const model = createModel(heroes);
+    model.remove(1);
+    expect(model.$collection.length).toBe(1);
+    expect(model.all().length).toBe(1);
   });
 });

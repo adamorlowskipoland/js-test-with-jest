@@ -35,4 +35,7 @@ export default class Model {
     if (entryIndex < 0) return false;
     this.$collection.splice(entryIndex, 1, Object.assign(this.$collection[entryIndex], data));
   }
+
+  remove() {
+  }
 }
