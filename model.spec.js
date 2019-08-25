@@ -13,3 +13,15 @@ test("model structure", () => {
     update: expect.any(Function),
   }))
 });
+
+describe("record", () => {
+  test("can add data to the collections", () => {
+    const heroes = [
+      {name: "Batman"},
+      {name: "Black Panther"}
+    ];
+    const model = new Model();
+    model.record(heroes);
+    expect(model.$collection).toEqual(heroes)
+  })
+});
