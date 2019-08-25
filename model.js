@@ -12,6 +12,7 @@ export default class Model {
   }
 
   all() {
+    return this.$collection.map(entry => Object.assign({}, entry));
   }
 
   find() {
