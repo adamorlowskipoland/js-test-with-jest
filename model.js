@@ -10,6 +10,14 @@ export default class Model {
     }
   }
 
+  $collectIndex(id) {
+    const cached = {};
+    if (!cached[id]) {
+      cached[id] = this.$collection.findIndex(entry => entry[this.$options.primaryKey] === id);
+    }
+    return cached[id];
+  }
+
   record(data) {
     const dataWithIds = data.map(entry => {
       if (entry[this.$options.primaryKey]) {
@@ -31,13 +39,13 @@ export default class Model {
   }
 
   update(id, data) {
-    const entryIndex = this.$collection.findIndex(entry => entry[this.$options.primaryKey] === id);
+    const entryIndex = this.$collectIndex(id);
     if (entryIndex < 0) return false;
     this.$collection.splice(entryIndex, 1, Object.assign(this.$collection[entryIndex], data));
   }
 
   remove(id) {
-    const entryIndex = this.$collection.findIndex(entry => entry[this.$options.primaryKey] === id);
+    const entryIndex = this.$collectIndex(id);
     if (entryIndex > -1) {
       this.$collection.splice(entryIndex, 1);
     }
