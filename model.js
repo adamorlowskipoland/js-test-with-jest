@@ -8,19 +8,23 @@ export default class Model {
   }
 
   record(data) {
-    this.$collection.push(...data);
+    const dataWithIds = data.map(entry => {
+      if (entry.id) {
+        return entry
+      }
+      entry.id = Date.now();
+      return entry;
+    });
+    this.$collection.push(...dataWithIds);
   }
 
   all() {
     return this.$collection.map(entry => Object.assign({}, entry));
   }
 
-  find(phrase) {
-    const entry = this.$collection.find(entry => entry.name === phrase);
-    if (entry) {
-      return entry;
-    }
-    return null;
+  find(id) {
+    const entry = this.$collection.find(entry => entry.id === id);
+    return entry ? Object.assign({}, entry) : null;
   }
 
   update() {

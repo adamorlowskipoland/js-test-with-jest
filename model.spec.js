@@ -15,12 +15,18 @@ test("model structure", () => {
 });
 
 describe("record", () => {
-  const heroes = [{name: "Batman"}, {name: "Black Panther"}];
+  const heroes = [{id: 1, name: "Batman"}, {name: "Black Panther"}];
 
   test("can add data to the collections", () => {
     const model = new Model();
     model.record(heroes);
-    expect(model.$collection).toEqual(heroes)
+    expect(model.$collection).toEqual([
+      heroes[0],
+      {
+        id: expect.any(Number),
+        name: heroes[1].name,
+      }
+    ])
   });
   test("gets called when data is passed to Model", () => {
     const spyRecord = jest.spyOn(Model.prototype, "record");
@@ -51,14 +57,21 @@ describe("all", () => {
 });
 
 describe("find", () => {
+  const heroes = [{id: 1, name: "Batman"}, {id: 2, name: "Black Panther"}];
   test("returns null if nothing matches", () => {
     const model = new Model();
     expect(model.find("Batman")).toEqual(null);
   });
 
-  test("return a matching entry", () => {
-    const heroes = [{name: "Batman"}, {name: "Black Panther"}];
+  test("returns a matching entry", () => {
     const model = new Model(heroes);
-    expect(model.find("Batman")).toEqual(heroes[0]);
+    expect(model.find(1)).toEqual(heroes[0]);
+  });
+
+  test("returned entry is a copy, original value stays intact", () => {
+    const model = new Model(heroes);
+    const foundEntry = model.find(1);
+    foundEntry.name = "Robin";
+    expect(model.find(1)).toEqual(heroes[0]);
   });
 });
