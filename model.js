@@ -15,7 +15,12 @@ export default class Model {
     return this.$collection.map(entry => Object.assign({}, entry));
   }
 
-  find() {
+  find(phrase) {
+    const entry = this.$collection.find(entry => entry.name === phrase);
+    if (entry) {
+      return entry;
+    }
+    return null;
   }
 
   update() {
