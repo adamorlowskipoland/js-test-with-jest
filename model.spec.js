@@ -15,13 +15,16 @@ test("model structure", () => {
 });
 
 describe("record", () => {
+  const heroes = [{name: "Batman"}, {name: "Black Panther"}];
+
   test("can add data to the collections", () => {
-    const heroes = [
-      {name: "Batman"},
-      {name: "Black Panther"}
-    ];
+    //TODO: add spy method
     const model = new Model();
     model.record(heroes);
+    expect(model.$collection).toEqual(heroes)
+  });
+  test("gets called when data is passed to Model", () => {
+    const model = new Model(heroes);
     expect(model.$collection).toEqual(heroes)
   })
 });
