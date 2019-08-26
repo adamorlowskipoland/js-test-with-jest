@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favourite Movies rate a movie 1`] = `
+Array [
+  Object {
+    "rate": 5,
+    "title": "Ice Age 2",
+  },
+]
+`;
