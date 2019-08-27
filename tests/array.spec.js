@@ -18,6 +18,17 @@ describe("splice does modify original data", () => {
     expect(data[1]).toBe("Solo");
     expect(data.length).toBe(4);
   });
+
+  test("after splicing 2 elems from last with new elems, original data will be modified", () => {
+    const lastTwo = data.splice(-2, 2, "Solo", "Leia");
+    console.log(lastTwo)
+
+    expect(data[1]).toBe("Solo");
+    expect(data.length).toBe(3);
+
+    expect(lastTwo.length).toBe(2);
+    expect(lastTwo).toEqual(["Yoda", "Luke"]);
+  });
 });
 
 describe("slice does not modify original data ", () => {
@@ -41,6 +52,19 @@ describe("slice does not modify original data ", () => {
     expect(extendedData[1]).toBe("Solo");
     expect(data.length).toBe(3);
     expect(extendedData.length).toBe(4);
+  });
+
+  test("sliced last elem/s returns new array leaving original data intact", () => {
+    const last = data.slice(-1);
+    const lastTwo = data.slice(-2);
+
+    expect(data.length).toBe(3);
+
+    expect(last.length).toBe(1);
+    expect(last[0]).toBe("Luke");
+
+    expect(lastTwo.length).toBe(2);
+    expect(lastTwo).toEqual(["Yoda", "Luke"]);
   });
 
 });
